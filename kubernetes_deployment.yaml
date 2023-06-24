@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mydeployment
+  name: red
+spec:
+  replicas: 3
+  selector:
+    matchLabels: 
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mydeployment
+    spec:
+      affinity:
+       nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: color
+              operator: In
+              values:
+              - blue
+      containers:
+      - image: nginx
+        name: nginx
